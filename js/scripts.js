@@ -6,7 +6,7 @@ createApp({
           contacts: [
             {
                 name: 'Michele',
-                avatar: './img/avatar_1.png',
+                avatar: './img/avatar_1.jpg',
                 visible: true,
                 messages: [
                     {
@@ -28,7 +28,7 @@ createApp({
             },
             {
                 name: 'Fabio',
-                avatar: './img/avatar_2.png',
+                avatar: './img/avatar_2.jpg',
                 visible: true,
                 messages: [
                     {
@@ -50,7 +50,7 @@ createApp({
             },
             {
                 name: 'Samuele',
-                avatar: './img/avatar_3.png',
+                avatar: './img/avatar_3.jpg',
                 visible: true,
                 messages: [
                     {
@@ -72,7 +72,7 @@ createApp({
             },
             {
                 name: 'Alessandro B.',
-                avatar: './img/avatar_4.png',
+                avatar: './img/avatar_4.jpg',
                 visible: true,
                 messages: [
                     {
@@ -89,7 +89,7 @@ createApp({
             },
             {
                 name: 'Alessandro L.',
-                avatar: './img/avatar_5.png',
+                avatar: './img/avatar_5.jpg',
                 visible: true,
                 messages: [
                     {
@@ -106,7 +106,7 @@ createApp({
             },
             {
                 name: 'Claudia',
-                avatar: './img/avatar_6.png',
+                avatar: './img/avatar_6.jpg',
                 visible: true,
                 messages: [
                     {
@@ -128,7 +128,7 @@ createApp({
             },
             {
                 name: 'Federico',
-                avatar: './img/avatar_7.png',
+                avatar: './img/avatar_7.jpg',
                 visible: true,
                 messages: [
                     {
@@ -145,7 +145,7 @@ createApp({
             },
             {
                 name: 'Davide',
-                avatar: './img/avatar_8.png',
+                avatar: './img/avatar_8.jpg',
                 visible: true,
                 messages: [
                     {
@@ -164,18 +164,61 @@ createApp({
                         status: 'received'
                     }
                 ],
-            }
-        ]}
+            },
+            {
+              name: 'Youssef',
+              avatar: './img/gu.png',
+              visible: true,
+              messages: [
+                  {
+                      date: '28/03/2020 10:10:40',
+                      message: 'Cleopatra mia Dea!',
+                      status: 'received'
+                  },
+                  {
+                      date: '28/03/2020 10:20:10',
+                      message: 'Sicuro di non aver sbagliato chat?',
+                      status: 'sent'
+                  },
+                  {
+                      date: '28/03/2020 16:15:22',
+                      message: 'Costruisco le piramidi in Egitto!',
+                      status: 'received'
+                  }
+              ],
+          }
+        ],
+        activeChat: -1,      
+      }
     },
     methods: {
+      active(i) {
+          this.activeChat = i;
+      },
+      
+      sendMessage() {
+          if (this.newMessage.trim() !== '') {
+              this.contacts[this.activeChat].messages.push({
+                  date: new Date().toLocaleString(),
+                  message: this.newMessage,
+                  status: 'sent'
+              });
+              this.newMessage = '';
 
-    },
-    // mounted() {
-    //   axios
-    //     .get('https://url.url')
-    //     .then((response) => => {
-    //       console.log(this.response.data) 
-    //     })
-    // }
-}
-).mount('#app');
+              setTimeout(() => {
+                this.contacts[this.activeChat].messages.push({
+                  date: new Date().toLocaleString(),
+                  message: 'Ok!',
+                  status: 'received'
+                })
+              }, 1000);
+          }
+      },
+      getFormattedTime(time) {
+        const [hours, minutes] = time.split(' ')[1].split(':');
+        return `${hours}:${minutes}`;
+      },
+      
+      
+  },
+}).mount('#app');

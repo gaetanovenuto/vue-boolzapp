@@ -2,6 +2,15 @@
     UTILITIES
 ****************************************************/
 
+.active {
+    display: block;
+}
+
+.selected {
+    background-color: #254930;
+    
+}
+
 /********************* 
     BACKGROUND COLORS
 **********************/
@@ -19,7 +28,7 @@
 }
 
 .lightblue-bg {
-    background-color: #8EDAFC;
+    background-color: #477286;
 }
 
 .green-message {
@@ -36,6 +45,18 @@
 
 .white-bg {
     background-color: white;
+}
+
+.dark-bg {
+    background-color: #222E35;
+}
+
+.lessdark-bg {
+    background-color: #394d58;
+}
+
+.darkgreen-bg {
+    background-color: #06CF9C;
 }
 /********************* 
     TEXT

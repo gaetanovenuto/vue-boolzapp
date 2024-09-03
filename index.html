@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Template HTML/CSS/JS</title>
+        <title>Boolzap</title>
 
         <!-- BOOTSTRAP CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -33,12 +33,14 @@
             <main class="grey-bg d-flex justify-content-center">
                 <div class="myContainer test-background" id="app-container">
                     <div class="row">
-                        <div class="col-5 lightgrey-bg" id="left-side">
+                        <!-- PARTE SINISTRA DELL'APP -->
+                        <div class="col-5 dark-bg" id="left-side">
+                            <!-- HEADER DELL'APP (NOME UTENTE E INTERAZIONI UTENTE) -->
                             <div class="user-profile">
                                 <div class="imageContainer">
                                     <img src="img/avatar_io.jpg" alt="Sofia">
                                 </div>
-                                <div class="titleContainer">Sofia</div>
+                                <div class="titleContainer text-white">Sofia</div>
                                 <div class="user-actions">
                                     <button class="user-stories">
                                         <i class="fa-solid fa-circle-notch"></i>
@@ -51,7 +53,8 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="desktop-notifications lightblue-bg">
+                            <!-- NOTIFICHE DESKTOP -->
+                            <div class="desktop-notifications darkgreen-bg">
                                 <div class="imageContainer white-bg">
                                     <i class="fa-solid fa-bell-slash"></i>
                                 </div>
@@ -60,6 +63,112 @@
                                     <a href="#">Attiva notifiche desktop</a>
                                 </div>
                             </div>
+                            <!-- INPUT DI RICERCA CHAT -->
+                            <div class="search-chat dark-bg">
+                                <div class="searchbar lessdark-bg">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <input type="text" placeholder="Cerca o inizia una nuova chat" id="search-text" class="lessdark-bg">
+                                </div>
+                            </div>
+                            <!-- LISTA CONTATTI -->
+                            <div class="contacts" >
+                                <!-- SINGOLA CHAT CICLATA NELL'ARRAY CONTACTS -->
+                                <div class="user-chat" 
+                                     v-for="(contact, i) in contacts" 
+                                     @click="active(i)"
+                                     :class="activeChat === i ? 'selected' : ''"
+                                     >
+                                    <div class="imageContainer">
+                                        <!-- IMMAGINE CONTATTO -->
+                                        <img :src="contact.avatar" :alt="contact.name">
+                                    </div>
+                                    <div class="titleContainer">
+                                        <!-- NOME CONTATTO -->
+                                        <div class="contact-name text-white">
+                                            {{ contact.name }}
+                                        </div>
+                                        <div class="last-message">
+                                            <!-- ULTIMO MESSAGGIO INVIATO -->
+                                            {{ contact.messages[contact.messages.length - 1].message }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-7 dark-bg" id="right-side">
+                            <!-- HOME WHATSAPP (NESSUNA CHAT APERTA) -->
+                            <div class="home" v-if="activeChat < 0">
+                                <img src="https://static.whatsapp.net/rsrc.php/v3/y6/r/wa669aeJeom.png" alt="Whatsapp per Windows">
+                                <div class="text-white py-3 fs-2 home-title">
+                                    Scarica Whatsapp per Windows
+                                </div>
+                                <div class="text-white py-1 fs-5 text-center home-text" >
+                                    Fai chiamate, condividi lo schermo e trai vantaggio da una navigazione più rapida scaricando l'app per Windows.
+                                </div>
+                                <a href="#" class="my-5 px-3 py-2 btn  downloadButton">Scarica da Microsoft Store</a>                        
+                            </div>
+                            <!-- SINGOLA CHAT -->
+                            <div class="chat" v-if="activeChat > -1">
+                                <!-- NOME CONTATTO DELLA CHAT -->
+                                <div class="user-profile">
+                                    <!-- IMMAGINE CONTATTO DELLA CHAT -->
+                                    <div class="imageContainer">
+                                        <img :src="contacts[activeChat].avatar" :alt="contacts[activeChat].name">
+                                    </div>
+                                    <!-- NOME CONTATTO DELLA CHAT -->
+                                    <div class="titleContainer text-white">
+                                        {{ contacts[activeChat].name }}
+                                    </div>
+                                    <!-- AZIONI CONTATTO DELLA CHAT -->
+                                    <div class="user-actions">
+                                        <button class="user-stories">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </button>
+                                        <button class="message-icon">
+                                            <i class="fa-solid fa-paperclip"></i>
+                                        </button>
+                                        <button class="menu">
+                                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- CORPO DELLA CHAT -->
+                                <div class="chat-body">
+                                    <div class="row justify-content-between">
+                                        <div class="col-12" id="receivedMessages">
+                                            <div class="message d-flex align-items-center justify-content-between" 
+                                                v-for="(message, i) in contacts[activeChat].messages"  
+                                                :class="{'sent': message.status === 'sent', 'received': message.status === 'received'}">
+                                                    {{ message.message }}
+                                                <button id="message-options">
+                                                    <i class="fa-solid fa-angle-down"></i>
+                                                </button>
+                                                <span class="time">
+                                                    {{ getFormattedTime(message.date) }}
+                                                </span>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="row" id="messageBox" v-if="activeChat > -1">
+                                <div class="col-2 d-flex align-items-center justify-content-center fs-3">
+                                    <i class="fa-regular fa-face-smile"></i>
+                                </div>
+                                <div class="col-8">
+                                    <div class="chat-message dark-bg">
+                                        <div class="chat-message lessdark-bg">
+                                            <input type="text" v-model="newMessage" placeholder="Digita il tuo messaggio" class="lessdark-bg" @keyup.enter="sendMessage()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2 d-flex align-items-center justify-content-center fs-3">
+                                    <i class="fa-solid fa-microphone"></i>
+                                </div>
+                            </div>      
                         </div>
                     </div>
                 </div>
