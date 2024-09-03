@@ -24,22 +24,47 @@
         <div id="app">
 
             <!-- header -->
-            <header>
-                    <h1>HEADER</h1>
+            <header class="green-bg">
+            
             </header>
             <!-- /header -->
 
             <!-- main -->
-            <main>
-                    {{ message }}
+            <main class="grey-bg d-flex justify-content-center">
+                <div class="myContainer test-background" id="app-container">
+                    <div class="row">
+                        <div class="col-5 lightgrey-bg" id="left-side">
+                            <div class="user-profile">
+                                <div class="imageContainer">
+                                    <img src="img/avatar_io.jpg" alt="Sofia">
+                                </div>
+                                <div class="titleContainer">Sofia</div>
+                                <div class="user-actions">
+                                    <button class="user-stories">
+                                        <i class="fa-solid fa-circle-notch"></i>
+                                    </button>
+                                    <button class="message-icon">
+                                        <i class="fa-solid fa-message"></i>
+                                    </button>
+                                    <button class="menu">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="desktop-notifications lightblue-bg">
+                                <div class="imageContainer white-bg">
+                                    <i class="fa-solid fa-bell-slash"></i>
+                                </div>
+                                <div class="titleContainer">
+                                    <strong>Ricevi notifiche di nuovi messaggi</strong>
+                                    <a href="#">Attiva notifiche desktop</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
             <!-- /main -->
-
-            <!-- footer -->
-            <footer>      
-                    FOOTER     
-            </footer>
-            <!-- /footer -->
         </div>
 
         <!-- JS -->

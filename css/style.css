@@ -6,6 +6,37 @@
     BACKGROUND COLORS
 **********************/
 
+.green-bg {
+    background-color: #009688;
+}
+
+.grey-bg {
+    background-color: #DBDBD3;
+}
+
+.lightgrey-bg {
+    background-color: #EAEAEA;
+}
+
+.lightblue-bg {
+    background-color: #8EDAFC;
+}
+
+.green-message {
+    background-color: #D5F9BA;
+}
+
+.white-message {
+    background-color: #FFFFFF;
+}
+
+.test-background {
+    background-color: lightcoral;
+}
+
+.white-bg {
+    background-color: white;
+}
 /********************* 
     TEXT
 **********************/
