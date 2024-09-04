@@ -67,33 +67,39 @@
                             <div class="search-chat dark-bg">
                                 <div class="searchbar lessdark-bg">
                                     <i class="fa-solid fa-magnifying-glass"></i>
-                                    <input type="text" placeholder="Cerca o inizia una nuova chat" id="search-text" class="lessdark-bg">
+                                    <input type="text" placeholder="Cerca o inizia una nuova chat" id="search-text" class="lessdark-bg" v-model="searchContact">
                                 </div>
                             </div>
                             <!-- LISTA CONTATTI -->
-                            <div class="contacts" >
+                            <div class="contacts">
                                 <!-- SINGOLA CHAT CICLATA NELL'ARRAY CONTACTS -->
                                 <div class="user-chat" 
-                                     v-for="(contact, i) in contacts" 
-                                     @click="active(i)"
-                                     :class="activeChat === i ? 'selected' : ''"
-                                     >
+                                    v-for="(contact, i) in filteredContacts" 
+                                    @click="active(i)"
+                                    :class="activeChat === i ? 'selected' : ''"
+                                    >
                                     <div class="imageContainer">
                                         <!-- IMMAGINE CONTATTO -->
                                         <img :src="contact.avatar" :alt="contact.name">
                                     </div>
-                                    <div class="titleContainer">
+                                    <div class="titleContainer d-flex justify-content-between align-items-center">
                                         <!-- NOME CONTATTO -->
-                                        <div class="contact-name text-white">
-                                            {{ contact.name }}
+                                        <div>
+                                            <div class="contact-name text-white">
+                                                {{ contact.name }}
+                                            </div>
+                                            <div class="last-message">
+                                                <!-- ULTIMO MESSAGGIO INVIATO -->
+                                                {{ contact.messages[contact.messages.length - 1].message }}
+                                            </div>
                                         </div>
-                                        <div class="last-message">
-                                            <!-- ULTIMO MESSAGGIO INVIATO -->
-                                            {{ contact.messages[contact.messages.length - 1].message }}
-                                        </div>
+                                        <span class="time">
+                                              {{ getFormattedTime(contact.messages[contact.messages.length - 1].date) }}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
+
                             
                         </div>
                         <div class="col-7 dark-bg" id="right-side">
@@ -117,8 +123,14 @@
                                         <img :src="contacts[activeChat].avatar" :alt="contacts[activeChat].name">
                                     </div>
                                     <!-- NOME CONTATTO DELLA CHAT -->
-                                    <div class="titleContainer text-white">
-                                        {{ contacts[activeChat].name }}
+                                    <div class="titleContainer">
+                                        <div class="contactName text-white">
+                                            {{ contacts[activeChat].name }}
+                                        </div>
+                                        <div class="lastSeen">
+                                            ultimo accesso oggi alle {{
+                                                getLastMessageTime(contacts[activeChat].messages) }}
+                                        </div>
                                     </div>
                                     <!-- AZIONI CONTATTO DELLA CHAT -->
                                     <div class="user-actions">

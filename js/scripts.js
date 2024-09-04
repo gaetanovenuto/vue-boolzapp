@@ -188,8 +188,16 @@ createApp({
               ],
           }
         ],
-        activeChat: -1,      
+        activeChat: -1,
+        searchContact: "",      
       }
+    },
+    computed: {
+        filteredContacts() {
+            return this.contacts.filter(contact => {
+                return contact.name.toLowerCase().includes(this.searchContact.toLowerCase())
+            })
+        }
     },
     methods: {
       active(i) {
@@ -218,6 +226,12 @@ createApp({
         const [hours, minutes] = time.split(' ')[1].split(':');
         return `${hours}:${minutes}`;
       },
+      getLastMessageTime(messages) {
+        const lastMessage = messages[messages.length - 1];
+        const [date, time] = lastMessage.date.split(' ');
+        const [hours, minutes] = time.split (':');
+        return `${hours}:${minutes}`;
+      }
       
       
   },
