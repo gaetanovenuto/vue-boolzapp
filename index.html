@@ -153,9 +153,24 @@
                                                 v-for="(message, i) in contacts[activeChat].messages"  
                                                 :class="{'sent': message.status === 'sent', 'received': message.status === 'received'}">
                                                     {{ message.message }}
-                                                <button id="message-options">
-                                                    <i class="fa-solid fa-angle-down"></i>
-                                                </button>
+                                                <div>
+                                                    <button id="message-options" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa-solid fa-angle-down"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a class="dropdown-item" href="#">
+                                                                Message info
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="#" @click="deleteMessage(i)">
+                                                                Delete message
+                                                            </a>
+                                                        </li>
+                                                        
+                                                      </ul>
+                                                </div>
                                                 <span class="time">
                                                     {{ getFormattedTime(message.date) }}
                                                 </span>
@@ -189,6 +204,7 @@
         </div>
 
         <!-- JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script type="text/javascript" src="js/scripts.js"></script>

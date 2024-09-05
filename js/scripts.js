@@ -231,6 +231,10 @@ createApp({
         const [date, time] = lastMessage.date.split(' ');
         const [hours, minutes] = time.split (':');
         return `${hours}:${minutes}`;
+      },
+
+      deleteMessage(i) {
+        return this.contacts[this.activeChat].messages.splice(i, 1);
       }
       
       
