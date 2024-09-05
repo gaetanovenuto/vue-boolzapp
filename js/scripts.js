@@ -223,9 +223,22 @@ createApp({
             }
         },
 
-        getFormattedTime(time) {
-            const [hours, minutes] = time.split(' ')[1].split(':');
-            return `${hours}:${minutes}`;
+        getFormattedTime(myTime) {
+            const messageTime = new Date(myTime);
+            const nowTime = new Date();
+            const timeDifference = nowTime - messageTime;
+            const MSinADay = 24 * 60 * 60 * 1000;
+            const MSinTwoDays = MSinADay * 2;
+
+            if (timeDifference < MSinADay) {
+                const [hours, minutes] = myTime.split(' ')[1].split(':');
+                return `${hours}:${minutes}`;
+            } else if (timeDifference > MSinADay && timeDifference < MSinTwoDays) {
+                return 'yesterday';
+            } else {
+                return messageTime.toLocaleDateString();
+            }
+            
         },
         getLastMessageTime(messages) {
             const lastMessage = messages[messages.length - 1];
