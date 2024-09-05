@@ -74,7 +74,7 @@
                             <div class="contacts">
                                 <!-- SINGOLA CHAT CICLATA NELL'ARRAY CONTACTS -->
                                 <div class="user-chat" 
-                                    v-for="(contact, i) in filteredContacts" 
+                                    v-for="(contact, i) in filteredContacts()" 
                                     @click="active(i)"
                                     :class="activeChat === i ? 'selected' : ''"
                                     >

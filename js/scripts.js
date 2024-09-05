@@ -192,51 +192,50 @@ createApp({
         searchContact: "",      
       }
     },
-    computed: {
+    
+    methods: {
+        active(i) {
+          this.activeChat = i;
+        },
+
         filteredContacts() {
             return this.contacts.filter(contact => {
                 return contact.name.toLowerCase().includes(this.searchContact.toLowerCase())
             })
-        }
-    },
-    methods: {
-      active(i) {
-          this.activeChat = i;
-      },
+        },
       
-      sendMessage() {
+        sendMessage() {
           if (this.newMessage.trim() !== '') {
-              this.contacts[this.activeChat].messages.push({
+                this.contacts[this.activeChat].messages.push({
                   date: new Date().toLocaleString(),
                   message: this.newMessage,
                   status: 'sent'
-              });
-              this.newMessage = '';
+                });
+                this.newMessage = '';
 
-              setTimeout(() => {
-                this.contacts[this.activeChat].messages.push({
-                  date: new Date().toLocaleString(),
-                  message: 'Ok!',
-                  status: 'received'
-                })
-              }, 1000);
-          }
-      },
-      getFormattedTime(time) {
-        const [hours, minutes] = time.split(' ')[1].split(':');
-        return `${hours}:${minutes}`;
-      },
-      getLastMessageTime(messages) {
-        const lastMessage = messages[messages.length - 1];
-        const [date, time] = lastMessage.date.split(' ');
-        const [hours, minutes] = time.split (':');
-        return `${hours}:${minutes}`;
-      },
+                setTimeout(() => {
+                    this.contacts[this.activeChat].messages.push({
+                    date: new Date().toLocaleString(),
+                    message: 'Ok!',
+                    status: 'received'
+                    })
+                }, 1000);
+            }
+        },
 
-      deleteMessage(i) {
-        return this.contacts[this.activeChat].messages.splice(i, 1);
-      }
-      
-      
+        getFormattedTime(time) {
+            const [hours, minutes] = time.split(' ')[1].split(':');
+            return `${hours}:${minutes}`;
+        },
+        getLastMessageTime(messages) {
+            const lastMessage = messages[messages.length - 1];
+            const [date, time] = lastMessage.date.split(' ');
+            const [hours, minutes] = time.split (':');
+            return `${hours}:${minutes}`;
+        },
+
+        deleteMessage(i) {
+            return this.contacts[this.activeChat].messages.splice(i, 1);
+        }   
   },
 }).mount('#app');
